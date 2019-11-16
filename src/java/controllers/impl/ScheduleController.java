@@ -32,10 +32,20 @@ public class ScheduleController {
     }
     
     public String save(String id, String eventDate, String expiredDate, String trainer, String room, String title){
-        if (ischeduledao.saveOrDelete(new Shcedule(id, new Date(eventDate), new Date(expiredDate), new Employee(new Integer(trainer)), new Materi(new BigDecimal(title)), new Room(new BigDecimal(room))), true)) {
-            return "Save Success";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String date = simpleDateFormat.format(eventDate);
+        if (ischeduledao.saveOrDelete(new Shcedule(id, new Date(date), new Date(expiredDate), new Employee(new Integer(trainer)), new Materi(new BigDecimal(title)), new Room(new BigDecimal(room))), true)) {
+            return "Save Success"+date;
         } else {
             return "Save Failed";
+        }
+    }
+    
+    public String saveDate(String id, String eventDate, String trainer, String room, String title){
+        if (ischeduledao.saveOrDelete(new Shcedule(id, new Date(eventDate), new Employee(new Integer(trainer)), new Materi(new BigDecimal(title)), new Room(new BigDecimal(room))), true)) {
+            return "Save DAte Success";
+        } else {
+            return "Save Date Failed";
         }
     }
     

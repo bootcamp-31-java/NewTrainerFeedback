@@ -9,6 +9,8 @@ import controllers.impl.MateriController;
 import controllers.impl.RoomController;
 import controllers.impl.ScheduleController;
 import controllers.impl.TrainerController;
+import daos.IGeneralDAO;
+import daos.impl.GeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -27,13 +29,19 @@ import tools.HibernateUtil;
  */
 @WebServlet(name = "ScheduleServlet", urlPatterns = {"/scheduleservlet"})
 public class ScheduleServlet extends HttpServlet {
-    
+
+    IGeneralDAO igdao = null;
     SessionFactory factory = HibernateUtil.getSessionFactory();
     private ScheduleController schedulec = new ScheduleController(HibernateUtil.getSessionFactory());
     private RoomController roomc = new RoomController(HibernateUtil.getSessionFactory());
     private TrainerController trainerc = new TrainerController(HibernateUtil.getSessionFactory());
     private MateriController materic = new MateriController(HibernateUtil.getSessionFactory());
 
+    public ScheduleServlet() {
+        igdao = new GeneralDAO(factory);
+    }
+
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -83,15 +91,13 @@ public class ScheduleServlet extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("id");
         String room = request.getParameter("room");
-        String eventDate = request.getParameter("eventDate");
-        String expiredDate = request.getParameter("expiredDate");
         String trainer = request.getParameter("trainer");
         String materi = request.getParameter("materi");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        Date date = new Date(eventDate);
-        String tgl = simpleDateFormat.format(date);
-        schedulec.save(id, tgl, expiredDate, trainer, room, materi);
-        
+        String eventDate = request.getParameter("eventDate");
+
+//        System.out.println(schedulec.saveDate(id, eventDate, trainer, room, id));
+        schedulec.saveDate(id, eventDate, trainer, room, materi);
+
         processRequest(request, response);
     }
 
