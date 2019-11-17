@@ -77,7 +77,7 @@
             </select>
             <br>
             Event Date:<br>
-            <input name="eventDate" type="date" data-date="" data-date-format="DD MMMM YYYY" value="2015-08-09">
+            <input name="eventDate" type="date" data-date="" data-date-format="" value="">
             <input type="submit" value="Submit">
         </form>
         <table>
@@ -93,8 +93,6 @@
             <%
                 int record = 1;
                 for (Shcedule shcedule : shcedules) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
-                    String tgl = sdf.format(shcedule.getEventDate());
             %>
             <tr>
                 <td><%=record++%></td>
@@ -102,7 +100,7 @@
                 <td><%=shcedule.getTrainer().getName()%></td>
                 <td><%=shcedule.getTitle().getTitle()%></td>
                 <td><%=shcedule.getRoom().getName()%></td>                
-                <td><%=tgl%></td>
+                <td><%=shcedule.getEventDate()%></td>
             </tr>
             <% } %>
         </table>

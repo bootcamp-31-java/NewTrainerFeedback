@@ -51,14 +51,21 @@ public class Main {
 //            System.out.println("gagal");
 //        }
 //        
-//        IGeneralDAO<Shcedule> igdao = new GeneralDAO<>(factory, Shcedule.class);
-//        if (igdao.saveOrDelete(new Shcedule("1A", new Date("12-12-2012"), new Date(12/12/2012), new Employee(new Integer(1)), new Materi(new BigDecimal(1)), new Room(new BigDecimal(1))), true)){
-//            System.out.println("1");;
+        IGeneralDAO<Shcedule> igdao = new GeneralDAO<>(factory, Shcedule.class);
+//        if (igdao.saveOrDelete(new Shcedule("2", new Date("12/12/2012"), new Date("12/12/2012"), new Employee(new Integer(1)), new Materi(new BigDecimal(1)), new Room(new BigDecimal(1))), true)) {
+//            System.out.println("BB");
 //        } else {
-//            System.out.println("-1");
+//            System.out.println("A");
 //        }
 //        IGeneralDAO<Category> iGeneralDAO = new GeneralDAO<>(factory, Category.class);
         IGeneralDAO igd = new GeneralDAO(HibernateUtil.getSessionFactory());
+        if (igdao.saveOrDelete(new Shcedule("SCH0009", new Date("10:00 12/12/2012"), new Employee(new Integer(1)), new Materi(new BigDecimal(1)), new Room(new BigDecimal(3))), true)) {
+            System.out.println("SUkses");
+        } else {
+            System.out.println("gagal");
+        }
+//        IGeneralDAO<Category> iGeneralDAO = new GeneralDAO<>(factory, Category.class);
+//        IGeneralDAO igd = new GeneralDAO(HibernateUtil.getSessionFactory());
 //        
 //        igd.saveOrDelete(new Role(new Integer(2), "Alo"), true);
 //        for (Category category : iGeneralDAO.getAll()) {

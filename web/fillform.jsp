@@ -307,9 +307,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">    
-                                    <form method="POST">
-                                        <% int i = 0;
-                                            for (Category category : categorys) { i++;
+                                    <form action="/TrainerFeedbacktest/questionServlet" method="POST">
+                                        <% 
+                                            int p = 0;
+                                            for (Category category : categorys) {                                                
                                         %>                                        
                                         <p><%=category.getName()%></p>
                                         <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -325,27 +326,28 @@
                                             <%} else {%>
 
                                             <%}%>
-                                            <%int p = 0;
+                                            <%
+                                                int i = -1;
                                                 for (Question question : category.getQuestionList()) {
-                                                    p++;
+                                                    i++;
                                                     if (question.getCategory().getType().equals("MULTIPLE CHOICE")) {
                                             %>   
                                             <tr>
-                                                <td width="500"><%=question.getQuestion()%></td>
-                                                <td align="center"><input type="radio" name="<%=i%>point<%=p%>" value="1" /></td>
-                                                <td align="center"><input type="radio" name="<%=i%>point<%=p%>" value="2" /></td>
-                                                <td align="center"><input type="radio" name="<%=i%>point<%=p%>" value="3" /></td>
-                                                <td align="center"><input type="radio" name="<%=i%>point<%=p%>" value="4" /></td>
-                                                <td align="center"><input type="text" name="<%=i%>note<%=p%>" value="" class="form form-control"/></td>                                            
+                                                <td width="40%"><input type="hidden" name="qid[<%=p%>]" value="<%=question.getId()%>"><%=question.getQuestion()%><span style="color:red">*</span></td>
+                                                <td align="center"><input type="radio" name="point[<%=p%>]" value="1" id="radio"/></td>
+                                                <td align="center"><input type="radio" name="point[<%=p%>]" value="2" id="radio"/></td>
+                                                <td align="center"><input type="radio" name="point[<%=p%>]" value="3" id="radio"/></td>
+                                                <td align="center"><input type="radio" name="point[<%=p%>]" value="4" id="radio"/></td>
+                                                <td align="center"><input type="text" name="note[<%=p%>]" value=""placeholder="your answer" class="form form-control"/></td>                                            
                                             </tr>
                                             <%
-
+                                                    p++;
                                                 }
                                                 if (question.getCategory().getType().equals("ESSAY")) {
                                             %>                                            
                                             <tr>
-                                                <td width="500"><%=question.getQuestion()%></td>
-                                                <td colspan="5" align="center"><textarea class="form form-control" name="detail<%=p%>"></textarea></td>
+                                                <td width="40%"><input type="hidden" name="qide[<%=i%>]" value="<%=question.getId()%>"><%=question.getQuestion()%><span style="color:red">*</span></td>
+                                                <td colspan="5" align="center"><textarea class="form form-control" name="detail[<%=i%>]" placeholder="your answer" id="detail"></textarea></td>
                                             </tr>
                                             <%
                                                 }
@@ -355,7 +357,7 @@
                                         <br>
                                         <%}%>
                                         <div style="float:right;">
-                                            <input type="submit" value="Submit" class="btn btn-primary"/>
+                                            <input type="submit" value="Submit" id="btnSave" class="btn btn-primary"/>
                                         </div>
                                     </form>
                                 </div>
@@ -394,15 +396,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Apakah Anda Yakin?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">.·´¯`(>▂<)´¯`·.</span>
                         </button>
                     </div>
-                    <div class="modal-body">Pilih "Logout" untuk mengakhiri sesi.</div>
+                    <div class="modal-body">Choose "Logout" to end your session.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        <a class="btn btn-primary" href="/Setok/logoutServlet">Logout</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/TrainerFeedback/logoutServlet">Logout</a>
                     </div>
                 </div>
             </div>
@@ -430,39 +432,7 @@
             response.sendRedirect("questionServlet");
         }
         session.removeAttribute("questions");%>
-    <script>
-        $(document).ready(function () {
-
-            // code to read selected table row cell data (values).
-            $("#tabel-data").on('click', '.btn', function () {
-                // get the current row
-                var currentRow = $(this).closest("tr");
-
-                var No = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-                var Kode = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
-                var Name = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
-                var Tanggal = currentRow.find("td:eq(5)").text(); // get current row 6rd TD
-                var Jumlah = currentRow.find("td:eq(6)").text(); // get current row 7rd TD
-//                                                                    var Stok = currentRow.find("td:eq(7)").text(); // get current row 8rd TD
-
-                //            var data = col1 + "\n" + col2 + "\n" + col3;
-
-                $("#txtId").val(Kode);
-                $("#cmbNama").val(Name);
-                $("#txtTanggal").val(Tanggal);
-                $("#txtJumlah").val(Jumlah);
-                $("#txtDel").val(Kode);
-                $("#txtNamad").val(Name);
-                $("#txtJumlahd").val(Jumlah);
-                $("#txtTanggald").val(Tanggal);
-//                                                                    $("#txtStok").val(Stok);
-                $("#txtTemp").val(Jumlah);
-
-
-                //            alert(data);
-            });
-        });
-    </script>
+    
     <script>
         $('#edit').on('shown.bs.modal', function () {
             $(this).find('#txtName').focus();
@@ -481,18 +451,14 @@
     <script>
         $(document).ready(function () {
             $('#btnSave').click(function (e) {
-                var Id = $('#txtId').val();
-                var Name = $('#txtName').val();
-                var Tanggal = $('#txtTanggal').val();
-                var Jumlah = $('#txtJumlah').val();
-                var res;
+                var detail = $('#detail').val();
+                
 
-                if (Id == "" || Name == "" || Tanggal == "" || Jumlah == "") {
-                    $('#edit').modal('show');
+                if (document.getElementById("radio").checked == false || detail == "") {                    
                     Swal.fire({
                         title: 'Failed',
                         type: 'error',
-                        text: 'Data Tidak Boleh Kosong',
+                        text: 'Please fill the answer',
                         showConfirmButton: false,
                         timer: 2000
                     })

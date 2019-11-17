@@ -40,6 +40,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
         <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
     </head>
     <%
         List<Shcedule> shcedules = (List<Shcedule>) session.getAttribute("shcedules");
@@ -306,9 +307,9 @@
                                     <div style="float:left">                                        
                                         <label data-toggle="tooltip" title="Add Data"><button type="button" data-toggle="modal" data-target="#add" class="btn btn-secondary" style="font-size:17px;color:#FFFFFF;float:left;"><i class='far fa-plus-square'></i></button></label>
                                     </div>
-<!--                                    <div style="float:right;">
-                                        <label data-toggle="tooltip" title="Cetak Data"><a href="reportMasuk.jsp" data-toggle="tooltip" title="Cetak Laporan" target="_blank" class="btn btn-info" style="font-size:17px;color:#FFFFFF;float:left;"><i class='fas fa-print'></i></a></label>
-                                    </div>-->
+                                    <!--                                    <div style="float:right;">
+                                                                            <label data-toggle="tooltip" title="Cetak Data"><a href="reportMasuk.jsp" data-toggle="tooltip" title="Cetak Laporan" target="_blank" class="btn btn-info" style="font-size:17px;color:#FFFFFF;float:left;"><i class='fas fa-print'></i></a></label>
+                                                                        </div>-->
                                 </h6>
                             </div>
                             <div class="card-body">
@@ -332,8 +333,6 @@
                                             <%
                                                 int record = 1;
                                                 for (Shcedule shcedule : shcedules) {
-                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
-                                                    String tgl = sdf.format(shcedule.getEventDate());
                                             %>
                                             <tr>
                                                 <td><%=record++%></td>
@@ -344,7 +343,7 @@
                                                 <td><%=shcedule.getTitle().getTitle()%></td>
                                                 <td style="display:none;"><%=shcedule.getRoom().getId()%></td>                                                
                                                 <td><%=shcedule.getRoom().getName()%></td>                                                
-                                                <td><%=tgl%></td>
+                                                <td><%=shcedule.getEventDate()%></td>
                                                 <td>
                                                     <!--                                        <button type="button" class="coba">Test</button>-->
                                                     <label data-toggle="tooltip" title="Edit Data"><button type="button" data-toggle="modal" data-target="#edit" class="btn btn-warning" style="color:#FFFFFF;"><i class='fas fa-pencil-alt'></i></button>&nbsp;</label>
@@ -479,73 +478,60 @@
 
                                         <table border="0" width="98%">
                                             <tbody>
-                                                <tr>
-                                                    <td></td>
-                                                    <% int id = 1;
-                                                        for (Shcedule sch : shcedules) {
-                                                            Shcedule sc = (Shcedule) sch;
-                                                            String c = sc.getId().substring(3);
-                                                            if (id < Integer.parseInt(c)) {
-                                                                id = Integer.parseInt(c);
-                                                            }
-                                                        }
-                                                        id += 1;
-                                                        String fi = "SCH" + String.format("%04d", id);%>
-                                                        <td><input type="hidden" class="form-control" name="txtId" id="txtIds" value="<%=fi%>" autofocus/></td>                        
-                                                </tr>
-                                                <tr>
-                                                    <td>Trainer Name<span style="color:red">*</span></td>
-                                                    <td>
-                                                        <select name="trainer" id="trainers" class="form-control">                                                           
-                                                            <option value="null">-----------------</option>
-                                                            <%
-                                                                for (Trainer trainer : trainers) {
-                                                            %>
-                                                            <option value="<%=trainer.getId()%>"><%=trainer.getEmployee().getName()%></option>
-                                                            <%}%>
-                                                        </select>
-                                                        <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
-                                                    </td>                    
-                                                </tr>
-                                                <tr>
-                                                    <td>Room Name<span style="color:red">*</span></td>
-                                                    <td>
-                                                        <select name="room" id="rooms" class="form-control">                                                           
-                                                            <option value="null">-----------------</option>
-                                                            <%
-                                                                for (Room room : rooms) {
-                                                            %>
-                                                            <option value="<%=room.getId()%>"><%=room.getName()%></option>
-                                                            <%}%>
-                                                        </select>
-                                                        <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
-                                                    </td>                    
-                                                </tr>
-                                                <tr>
-                                                    <td>Title<span style="color:red">*</span></td>
-                                                    <td>
-                                                        <select name="materi" id="materis" class="form-control">                                                           
-                                                            <option value="null">-----------------</option>
-                                                            <%
-                                                                for (Materi materi : materis) {
-                                                            %>
-                                                            <option value="<%=materi.getId()%>"><%=materi.getTitle()%></option>
-                                                            <%}%>
-                                                        </select>
-                                                        <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
-                                                    </td>                    
-                                                </tr>
-                                                <tr>
-                                                    <td>Tanggal<span style="color:red">*</span></td>
-                                                    <td>
-                                                        <input id="Tanggals" name="eventDate"/>
-                                                        <script>
-                                                            $('#Tanggals').datepicker({
-                                                                uiLibrary: 'bootstrap4'
-                                                            });
-                                                        </script>
-                                                    </td>                    
-                                                </tr>    
+                                               ID:<br>
+                                            <input type="text" name="id" >
+                                            <br>
+                                            <tr>
+                                                <td>Trainer Name<span style="color:red">*</span></td>
+                                                <td>
+                                                    <select name="trainer" id="trainers" class="form-control">                                                           
+                                                        <option value="null">-----------------</option>
+                                                        <%
+                                                            for (Trainer trainer : trainers) {
+                                                        %>
+                                                        <option value="<%=trainer.getId()%>"><%=trainer.getEmployee().getName()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                    <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
+                                                </td>                    
+                                            </tr>
+                                            <tr>
+                                                <td>Room Name<span style="color:red">*</span></td>
+                                                <td>
+                                                    <select name="room" id="rooms" class="form-control">                                                           
+                                                        <option value="null">-----------------</option>
+                                                        <%
+                                                            for (Room room : rooms) {
+                                                        %>
+                                                        <option value="<%=room.getId()%>"><%=room.getName()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                    <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
+                                                </td>                    
+                                            </tr>
+                                            <tr>
+                                                <td>Title<span style="color:red">*</span></td>
+                                                <td>
+                                                    <select name="materi" id="materis" class="form-control">                                                           
+                                                        <option value="null">-----------------</option>
+                                                        <%
+                                                            for (Materi materi : materis) {
+                                                        %>
+                                                        <option value="<%=materi.getId()%>"><%=materi.getTitle()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                    <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
+                                                </td>                    
+                                            </tr>
+                                            <tr>
+                                                <td>Tanggal<span style="color:red">*</span></td>
+                                                <td  class="input-append date form_datetime">
+                                                    <input name="eventDate" id="input" width="312" />
+                                                    <script>
+                                                        $('#input').datetimepicker({footer: true, modal: true});
+                                                    </script>
+                                                </td>                    
+                                            </tr>   
                                             </tbody>
                                         </table>
 
@@ -630,35 +616,35 @@
         session.removeAttribute("shcedules");
     %>
     <script>
-                                                            $(document).ready(function () {
+                                                        $(document).ready(function () {
 
-                                                                // code to read selected table row cell data (values).
-                                                                $("#tabel-data").on('click', '.btn', function () {
-                                                                    // get the current row
-                                                                    var currentRow = $(this).closest("tr");
+                                                            // code to read selected table row cell data (values).
+                                                            $("#tabel-data").on('click', '.btn', function () {
+                                                                // get the current row
+                                                                var currentRow = $(this).closest("tr");
 
-                                                                    var No = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-                                                                    var ID = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
-                                                                    var Trainer = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
-                                                                    var Title = currentRow.find("td:eq(4)").text(); // get current row 6rd TD
-                                                                    var Room = currentRow.find("td:eq(6)").text(); // get current row 7rd TD
-                                                                    var EventDate = currentRow.find("td:eq(8)").text(); // get current row 7rd TD
+                                                                var No = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+                                                                var ID = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+                                                                var Trainer = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+                                                                var Title = currentRow.find("td:eq(4)").text(); // get current row 6rd TD
+                                                                var Room = currentRow.find("td:eq(6)").text(); // get current row 7rd TD
+                                                                var EventDate = currentRow.find("td:eq(8)").text(); // get current row 7rd TD
 //                                                                    var Stok = currentRow.find("td:eq(7)").text(); // get current row 8rd TD
 
-                                                                    //            var data = col1 + "\n" + col2 + "\n" + col3;
+                                                                //            var data = col1 + "\n" + col2 + "\n" + col3;
 
-                                                                    $("#txtId").val(ID);
-                                                                    $("#trainer").val(Trainer);
-                                                                    $("#materi").val(Title);
-                                                                    $("#room").val(Room);
-                                                                    $("#Tanggal").val(EventDate);
-
-
+                                                                $("#txtId").val(ID);
+                                                                $("#trainer").val(Trainer);
+                                                                $("#materi").val(Title);
+                                                                $("#room").val(Room);
+                                                                $("#Tanggal").val(EventDate);
 
 
-                                                                    //            alert(data);
-                                                                });
+
+
+                                                                //            alert(data);
                                                             });
+                                                        });
     </script>
     <script>
         $('#edit').on('shown.bs.modal', function () {

@@ -200,7 +200,8 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         return entity;
     }
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-@Override
+
+    @Override
     public List<T> getAll(T entity) {
         List<T> entities = new ArrayList<>();
         session = this.factory.openSession();
@@ -219,6 +220,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         return entities;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     @Override
     public List<T> getValid(T entity, String category, Object key) {
         List<T> entities = new ArrayList<>();
@@ -227,7 +229,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         try {
 
             Criteria crit = session.createCriteria(entity.getClass());
-            Criterion cat = Restrictions.like(category, key + "%", MatchMode.EXACT);             
+            Criterion cat = Restrictions.like(category, key + "%", MatchMode.EXACT);
             Disjunction disj = Restrictions.disjunction();
             disj.add(cat);
             crit.add(disj);
@@ -244,4 +246,48 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         return entities;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean insertUpdateDelete(T entity, boolean isDel) {
+        boolean result = false;
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            if (isDel == true) {
+                session.delete(entity);
+            } else {
+                session.saveOrUpdate(entity);
+            }
+            transaction.commit();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return result;
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public T countData(T entity, String category, Object key) {
+        T entitys = null;
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            entitys = (T) session.createQuery("SELECT COUNT(" + category + ") FROM " + entity.getClass().getSimpleName() + " WHERE " + category + " = " + key).uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return entitys;
+    }
+
 }

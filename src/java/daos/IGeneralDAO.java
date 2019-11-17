@@ -66,4 +66,10 @@ public interface IGeneralDAO<T> {
      * @return return berupa daftar dari parameter entity
      */
     public List<T> getValid(T entity, String category, Object key);
+    
+    public boolean insertUpdateDelete(T entity, boolean isDel);
+    
+    public T countData(T entity, String category, Object key);
+
+       
 }
