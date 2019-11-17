@@ -5,13 +5,16 @@
  */
 package tools;
 
+import daos.IAvgDAO;
 import daos.IGeneralDAO;
+import daos.impl.AvgDAO;
 import daos.impl.GeneralDAO;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import models.AnswerPg;
 import models.Category;
 import models.Employee;
 import models.Job;
@@ -54,13 +57,21 @@ public class Main {
 //        } else {
 //            System.out.println("-1");
 //        }
-        IGeneralDAO<Category> iGeneralDAO = new GeneralDAO<>(factory, Category.class);
-//        IGeneralDAO igd = new GeneralDAO(HibernateUtil.getSessionFactory());
+//        IGeneralDAO<Category> iGeneralDAO = new GeneralDAO<>(factory, Category.class);
+        IGeneralDAO igd = new GeneralDAO(HibernateUtil.getSessionFactory());
 //        
 //        igd.saveOrDelete(new Role(new Integer(2), "Alo"), true);
-        for (Category category : iGeneralDAO.getAll()) {
-            System.out.println(category.getName());
+//        for (Category category : iGeneralDAO.getAll()) {
+//            System.out.println(category.getName());
+//        }
+
+        IAvgDAO ivg = new AvgDAO(HibernateUtil.getSessionFactory());
+        
+        for (Object answerPg : ivg.avgData()) {
+            
+            System.out.println(answerPg);
         }
+
     }
 
 }

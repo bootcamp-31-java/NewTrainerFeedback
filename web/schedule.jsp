@@ -318,11 +318,11 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID</th>
-                                                <th>id trainer</th>
+                                                <th style="display:none;">id trainer</th>
                                                 <th>Trainer</th>                                                
-                                                <th>id Title</th>                                                
+                                                <th style="display:none;">id Title</th>                                                
                                                 <th>Title</th>                                                
-                                                <th>id Room</th>
+                                                <th style="display:none;">id Room</th>
                                                 <th>Room</th>
                                                 <th>Event Date</th>
                                                 <th>Action</th>
@@ -338,11 +338,11 @@
                                             <tr>
                                                 <td><%=record++%></td>
                                                 <td><%=shcedule.getId()%></td>
-                                                <td><%=shcedule.getTrainer().getId()%></td>
+                                                <td style="display:none;"><%=shcedule.getTrainer().getId()%></td>
                                                 <td><%=shcedule.getTrainer().getName()%></td>
-                                                <td><%=shcedule.getTitle().getId()%></td>
+                                                <td style="display:none;"><%=shcedule.getTitle().getId()%></td>
                                                 <td><%=shcedule.getTitle().getTitle()%></td>
-                                                <td><%=shcedule.getRoom().getId()%></td>                                                
+                                                <td style="display:none;"><%=shcedule.getRoom().getId()%></td>                                                
                                                 <td><%=shcedule.getRoom().getName()%></td>                                                
                                                 <td><%=tgl%></td>
                                                 <td>
@@ -371,7 +371,7 @@
                     <!--EDIT-->
 
                     <!-- The Modal -->
-                    <form action="/Setok/lapinServlet" method="POST">
+                    <form action="scheduleservlet" method="POST">
                         <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="edit">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -390,7 +390,7 @@
                                                 <tr>
                                                     <td></td>
 
-                                                    <td><input type="text" class="form-control" name="txtId" id="txtId" value="" autofocus/></td>                        
+                                                    <td><input type="hidden" class="form-control" name="txtId" id="txtId" value="" autofocus/></td>                        
                                                 </tr>
                                                 <tr>
                                                     <td>Trainer Name<span style="color:red">*</span></td>
@@ -491,7 +491,7 @@
                                                         }
                                                         id += 1;
                                                         String fi = "SCH" + String.format("%04d", id);%>
-                                                        <td><input type="text" class="form-control" name="txtId" id="txtIds" value="<%=fi%>" autofocus/></td>                        
+                                                        <td><input type="hidden" class="form-control" name="txtId" id="txtIds" value="<%=fi%>" autofocus/></td>                        
                                                 </tr>
                                                 <tr>
                                                     <td>Trainer Name<span style="color:red">*</span></td>
@@ -592,15 +592,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Apakah Anda Yakin?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">.·´¯`(>▂<)´¯`·.</span>
                         </button>
                     </div>
-                    <div class="modal-body">Pilih "Logout" untuk mengakhiri sesi.</div>
+                    <div class="modal-body">Choose "Logout" to end your session.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        <a class="btn btn-primary" href="/Setok/logoutServlet">Logout</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/TrainerFeedback/logoutServlet">Logout</a>
                     </div>
                 </div>
             </div>
