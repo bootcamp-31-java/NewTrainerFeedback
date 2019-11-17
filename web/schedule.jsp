@@ -399,7 +399,7 @@
                                                             <%
                                                                 for (Trainer trainer : trainers) {
                                                             %>
-                                                            <option value="<%=trainer.getId()%>"><%=trainer.getEmployee().getName()%></option>
+                                                            <option value="<%=trainer.getEmployee().getId()%>"><%=trainer.getEmployee().getName()%></option>
                                                             <%}%>
                                                         </select>
                                                         <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
@@ -477,10 +477,7 @@
                                     <div class="modal-body">
 
                                         <table border="0" width="98%">
-                                            <tbody>
-                                               ID:<br>
-                                            <input type="text" name="id" >
-                                            <br>
+                                            <tbody>                                                
                                             <tr>
                                                 <td>Trainer Name<span style="color:red">*</span></td>
                                                 <td>
@@ -489,7 +486,7 @@
                                                         <%
                                                             for (Trainer trainer : trainers) {
                                                         %>
-                                                        <option value="<%=trainer.getId()%>"><%=trainer.getEmployee().getName()%></option>
+                                                        <option value="<%=trainer.getEmployee().getId()%>"><%=trainer.getEmployee().getName()%></option>
                                                         <%}%>
                                                     </select>
                                                     <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->

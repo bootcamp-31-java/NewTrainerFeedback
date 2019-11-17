@@ -104,14 +104,14 @@ public class QuestionServlet extends HttpServlet {
             notes[i] = request.getParameter("note[" + i + "]");
             qids[i] = request.getParameter("qid[" + i + "]");
 
-//            igd.insertUpdateDelete(new AnswerPg(new BigDecimal(0), new BigInteger(points[i]), notes[i], new Form(new BigDecimal(1)), new Question(new BigDecimal(qids[i]))), false);
+            igd.insertUpdateDelete(new AnswerPg(new BigDecimal(0), new BigInteger(points[i]), notes[i], new Form(new BigDecimal(1)), new Question(new BigDecimal(qids[i]))), false);
 //            System.out.println(points[i] + "-" + notes[i] + "=" + qids[i]);
 
         }
         for (int j = 0; j < 3; j++) {
             qide[j] = request.getParameter("qide[" + j + "]");
             detail[j] = request.getParameter("detail[" + j + "]");
-//            igd.insertUpdateDelete(new AnswerEssay(new BigDecimal(0), detail[j], new Form(new BigDecimal(1)), new Question(new BigDecimal(qide[j]))), false);
+            igd.insertUpdateDelete(new AnswerEssay(new BigDecimal(0), detail[j], new Form(new BigDecimal(1)), new Question(new BigDecimal(qide[j]))), false);
 //            System.out.println(qide[j]+" - "+detail[j]);
 
         }

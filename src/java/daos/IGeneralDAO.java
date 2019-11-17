@@ -69,7 +69,7 @@ public interface IGeneralDAO<T> {
     
     public boolean insertUpdateDelete(T entity, boolean isDel);
     
-    public T countData(T entity, String category, Object key);
+    public T countData(T entity);
 
        
 }

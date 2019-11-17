@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Shcedule;
 import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
@@ -89,13 +90,16 @@ public class ScheduleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
         String room = request.getParameter("room");
         String trainer = request.getParameter("trainer");
         String materi = request.getParameter("materi");
         String eventDate = request.getParameter("eventDate");
-
-//        System.out.println(schedulec.saveDate(id, eventDate, trainer, room, id));
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyy");
+        String df = sdf.format(new Date());
+        String id = "SCH"+df+String.format("%04d", igdao.countData(new Shcedule()));
+        
+        
+//        System.out.println(id);
         schedulec.saveDate(id, eventDate, trainer, room, materi);
 
         processRequest(request, response);

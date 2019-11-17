@@ -273,12 +273,12 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
     }
 
     @Override
-    public T countData(T entity, String category, Object key) {
+    public T countData(T entity) {
         T entitys = null;
         session = this.factory.openSession();
         transaction = session.beginTransaction();
         try {
-            entitys = (T) session.createQuery("SELECT COUNT(" + category + ") FROM " + entity.getClass().getSimpleName() + " WHERE " + category + " = " + key).uniqueResult();
+            entitys = (T) session.createQuery("SELECT COUNT(*)+1 FROM " + entity.getClass().getSimpleName()).uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {

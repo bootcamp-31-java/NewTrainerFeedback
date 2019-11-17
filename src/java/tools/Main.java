@@ -59,11 +59,11 @@ public class Main {
 //        }
 //        IGeneralDAO<Category> iGeneralDAO = new GeneralDAO<>(factory, Category.class);
         IGeneralDAO igd = new GeneralDAO(HibernateUtil.getSessionFactory());
-        if (igdao.saveOrDelete(new Shcedule("SCH0009", new Date("10:00 12/12/2012"), new Employee(new Integer(1)), new Materi(new BigDecimal(1)), new Room(new BigDecimal(3))), true)) {
-            System.out.println("SUkses");
-        } else {
-            System.out.println("gagal");
-        }
+//        if (igdao.saveOrDelete(new Shcedule("SCH0009", new Date("10:00 12/12/2012"), new Employee(new Integer(1)), new Materi(new BigDecimal(1)), new Room(new BigDecimal(3))), true)) {
+//            System.out.println("SUkses");
+//        } else {
+//            System.out.println("gagal");
+//        }
 //        IGeneralDAO<Category> iGeneralDAO = new GeneralDAO<>(factory, Category.class);
 //        IGeneralDAO igd = new GeneralDAO(HibernateUtil.getSessionFactory());
 //        
@@ -72,12 +72,17 @@ public class Main {
 //            System.out.println(category.getName());
 //        }
 
-        IAvgDAO ivg = new AvgDAO(HibernateUtil.getSessionFactory());
-        
-        for (Object answerPg : ivg.avgData()) {
-            
-            System.out.println(answerPg);
-        }
+//        IAvgDAO ivg = new AvgDAO(HibernateUtil.getSessionFactory());
+//        
+//        for (Object answerPg : ivg.avgData()) {
+//            
+//            System.out.println(answerPg);
+//        }
+
+       SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyy");
+        String df = sdf.format(new Date());
+        String id = "SCH"+df+String.format("%04d", igdao.countData(new Shcedule()));
+        System.out.println(id);
 
     }
 
