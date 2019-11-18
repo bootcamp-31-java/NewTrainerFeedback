@@ -47,8 +47,10 @@
         List<Room> rooms = (List<Room>) session.getAttribute("rooms");
         List<Trainer> trainers = (List<Trainer>) session.getAttribute("trainers");
         List<Materi> materis = (List<Materi>) session.getAttribute("materis");
+        List<Shcedule> historySchedule = (List<Shcedule>) session.getAttribute("historySchedule");
+        
 
-        if (shcedules != null) {
+        if (historySchedule != null) {
     %>
     <body id="page-top">
 
@@ -312,52 +314,122 @@
                                                                         </div>-->
                                 </h6>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">                                    
-                                    <table border="1" border="1" id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
-                                        <thead>                                
-                                            <tr>
-                                                <th>No</th>
-                                                <th>ID</th>
-                                                <th style="display:none;">id trainer</th>
-                                                <th>Trainer</th>                                                
-                                                <th style="display:none;">id Title</th>                                                
-                                                <th>Title</th>                                                
-                                                <th style="display:none;">id Room</th>
-                                                <th>Room</th>
-                                                <th>Event Date</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%
-                                                int record = 1;
-                                                for (Shcedule shcedule : shcedules) {
-                                            %>
-                                            <tr>
-                                                <td><%=record++%></td>
-                                                <td><%=shcedule.getId()%></td>
-                                                <td style="display:none;"><%=shcedule.getTrainer().getId()%></td>
-                                                <td><%=shcedule.getTrainer().getName()%></td>
-                                                <td style="display:none;"><%=shcedule.getTitle().getId()%></td>
-                                                <td><%=shcedule.getTitle().getTitle()%></td>
-                                                <td style="display:none;"><%=shcedule.getRoom().getId()%></td>                                                
-                                                <td><%=shcedule.getRoom().getName()%></td>                                                
-                                                <td><%=shcedule.getEventDate()%></td>
-                                                <td>
-                                                    <!--                                        <button type="button" class="coba">Test</button>-->
-                                                    <label data-toggle="tooltip" title="Edit Data"><button type="button" data-toggle="modal" data-target="#edit" class="btn btn-warning" style="color:#FFFFFF;"><i class='fas fa-pencil-alt'></i></button>&nbsp;</label>
-                                                    <!--                                                    <label data-toggle="tooltip" title="Delete Data"><button type="button" data-toggle="modal" data-target="#del" class="btn btn-danger"><i class='far fa-trash-alt'></i></button></label>-->
-                                                    <!--<input type="text" name="txtCoba" id="txtCoba" value="" />-->
-                                                </td>
-                                            </tr>
-                                            <%
-                                                }
-                                            %>
-                                        </tbody>                                        
-                                    </table>
+                            <div class="container">
+                                <h2>Data Schedule</h2>
+                                <br>
+                                <!-- Nav pills -->
+                                <ul class="nav nav-pills" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="pill" href="#home">Schedule Trainer</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="pill" href="#menu1">History Schedule</a>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div id="home" class="container tab-pane active"><br>
+                                        <div class="card-body">
+                                            <div class="table-responsive">                                    
+                                                <table border="1" border="1" id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                                    <thead>                                
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>ID</th>
+                                                            <th style="display:none;">id trainer</th>
+                                                            <th>Trainer</th>                                                
+                                                            <th style="display:none;">id Title</th>                                                
+                                                            <th>Title</th>                                                
+                                                            <th style="display:none;">id Room</th>
+                                                            <th>Room</th>
+                                                            <th>Event Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%
+                                                            int record = 1;
+                                                            for (Shcedule shcedule : shcedules) {
+                                                        %>
+                                                        <tr>
+                                                            <td><%=record++%></td>
+                                                            <td><%=shcedule.getId()%></td>
+                                                            <td style="display:none;"><%=shcedule.getTrainer().getId()%></td>
+                                                            <td><%=shcedule.getTrainer().getName()%></td>
+                                                            <td style="display:none;"><%=shcedule.getTitle().getId()%></td>
+                                                            <td><%=shcedule.getTitle().getTitle()%></td>
+                                                            <td style="display:none;"><%=shcedule.getRoom().getId()%></td>                                                
+                                                            <td><%=shcedule.getRoom().getName()%></td>                                                
+                                                            <td><%=shcedule.getEventDate()%></td>
+                                                            <td>
+                                                                <!--                                        <button type="button" class="coba">Test</button>-->
+                                                                <label data-toggle="tooltip" title="Edit Data"><button type="button" data-toggle="modal" data-target="#edit" class="btn btn-warning" style="color:#FFFFFF;"><i class='fas fa-pencil-alt'></i></button>&nbsp;</label>
+                                                                <!--                                                    <label data-toggle="tooltip" title="Delete Data"><button type="button" data-toggle="modal" data-target="#del" class="btn btn-danger"><i class='far fa-trash-alt'></i></button></label>-->
+                                                                <!--<input type="text" name="txtCoba" id="txtCoba" value="" />-->
+                                                            </td>
+                                                        </tr>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </tbody>                                        
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="menu1" class="container tab-pane fade"><br>
+                                        <div class="card-body">
+                                            <div class="table-responsive">                                    
+                                                <table border="1" border="1" id="tabel-data1" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                                    <thead>                                
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>ID</th>
+                                                            <th style="display:none;">id trainer</th>
+                                                            <th>Trainer</th>                                                
+                                                            <th style="display:none;">id Title</th>                                                
+                                                            <th>Title</th>                                                
+                                                            <th style="display:none;">id Room</th>
+                                                            <th>Room</th>
+                                                            <th>Event Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%
+                                                            int records = 1;
+                                                            for (Shcedule historySchedules : historySchedule) {
+                                                        %>
+                                                        <tr>
+                                                            <td><%=records++%></td>
+                                                            <td><%=historySchedules.getId()%></td>
+                                                            <td style="display:none;"><%=historySchedules.getTrainer().getId()%></td>
+                                                            <td><%=historySchedules.getTrainer().getName()%></td>
+                                                            <td style="display:none;"><%=historySchedules.getTitle().getId()%></td>
+                                                            <td><%=historySchedules.getTitle().getTitle()%></td>
+                                                            <td style="display:none;"><%=historySchedules.getRoom().getId()%></td>                                                
+                                                            <td><%=historySchedules.getRoom().getName()%></td>     
+                                                            <%%>
+                                                            <td><%=historySchedules.getEventDate()%></td>
+                                                            <%%>
+                                                            <td>
+                                                                <!--                                        <button type="button" class="coba">Test</button>-->
+                                                                <label data-toggle="tooltip" title="Edit Data"><button type="button" data-toggle="modal" data-target="#edit" class="btn btn-warning" style="color:#FFFFFF;"><i class='fas fa-pencil-alt'></i></button>&nbsp;</label>
+                                                                <!--                                                    <label data-toggle="tooltip" title="Delete Data"><button type="button" data-toggle="modal" data-target="#del" class="btn btn-danger"><i class='far fa-trash-alt'></i></button></label>-->
+                                                                <!--<input type="text" name="txtCoba" id="txtCoba" value="" />-->
+                                                            </td>
+                                                        </tr>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </tbody>                                        
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -439,7 +511,7 @@
                                                         <input id="Tanggal" name="eventDate"/>
                                                         <script>
                                                             $('#Tanggal').datepicker({
-                                                                uiLibrary: 'bootstrap4'
+                                                            uiLibrary: 'bootstrap4'
                                                             });
                                                         </script>
                                                     </td>                    
@@ -478,57 +550,57 @@
 
                                         <table border="0" width="98%">
                                             <tbody>                                                
-                                            <tr>
-                                                <td>Trainer Name<span style="color:red">*</span></td>
-                                                <td>
-                                                    <select name="trainer" id="trainers" class="form-control">                                                           
-                                                        <option value="null">-----------------</option>
-                                                        <%
-                                                            for (Trainer trainer : trainers) {
-                                                        %>
-                                                        <option value="<%=trainer.getEmployee().getId()%>"><%=trainer.getEmployee().getName()%></option>
-                                                        <%}%>
-                                                    </select>
-                                                    <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
-                                                </td>                    
-                                            </tr>
-                                            <tr>
-                                                <td>Room Name<span style="color:red">*</span></td>
-                                                <td>
-                                                    <select name="room" id="rooms" class="form-control">                                                           
-                                                        <option value="null">-----------------</option>
-                                                        <%
-                                                            for (Room room : rooms) {
-                                                        %>
-                                                        <option value="<%=room.getId()%>"><%=room.getName()%></option>
-                                                        <%}%>
-                                                    </select>
-                                                    <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
-                                                </td>                    
-                                            </tr>
-                                            <tr>
-                                                <td>Title<span style="color:red">*</span></td>
-                                                <td>
-                                                    <select name="materi" id="materis" class="form-control">                                                           
-                                                        <option value="null">-----------------</option>
-                                                        <%
-                                                            for (Materi materi : materis) {
-                                                        %>
-                                                        <option value="<%=materi.getId()%>"><%=materi.getTitle()%></option>
-                                                        <%}%>
-                                                    </select>
-                                                    <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
-                                                </td>                    
-                                            </tr>
-                                            <tr>
-                                                <td>Tanggal<span style="color:red">*</span></td>
-                                                <td  class="input-append date form_datetime">
-                                                    <input name="eventDate" id="input" width="312" />
-                                                    <script>
-                                                        $('#input').datetimepicker({footer: true, modal: true});
-                                                    </script>
-                                                </td>                    
-                                            </tr>   
+                                                <tr>
+                                                    <td>Trainer Name<span style="color:red">*</span></td>
+                                                    <td>
+                                                        <select name="trainer" id="trainers" class="form-control">                                                           
+                                                            <option value="null">-----------------</option>
+                                                            <%
+                                                                for (Trainer trainer : trainers) {
+                                                            %>
+                                                            <option value="<%=trainer.getEmployee().getId()%>"><%=trainer.getEmployee().getName()%></option>
+                                                            <%}%>
+                                                        </select>
+                                                        <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
+                                                    </td>                    
+                                                </tr>
+                                                <tr>
+                                                    <td>Room Name<span style="color:red">*</span></td>
+                                                    <td>
+                                                        <select name="room" id="rooms" class="form-control">                                                           
+                                                            <option value="null">-----------------</option>
+                                                            <%
+                                                                for (Room room : rooms) {
+                                                            %>
+                                                            <option value="<%=room.getId()%>"><%=room.getName()%></option>
+                                                            <%}%>
+                                                        </select>
+                                                        <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
+                                                    </td>                    
+                                                </tr>
+                                                <tr>
+                                                    <td>Title<span style="color:red">*</span></td>
+                                                    <td>
+                                                        <select name="materi" id="materis" class="form-control">                                                           
+                                                            <option value="null">-----------------</option>
+                                                            <%
+                                                                for (Materi materi : materis) {
+                                                            %>
+                                                            <option value="<%=materi.getId()%>"><%=materi.getTitle()%></option>
+                                                            <%}%>
+                                                        </select>
+                                                        <!--<input type="text" class="form-control" name="txtName" id="txtNames" value="" />-->
+                                                    </td>                    
+                                                </tr>
+                                                <tr>
+                                                    <td>Tanggal<span style="color:red">*</span></td>
+                                                    <td  class="input-append date form_datetime">
+                                                        <input name="eventDate" id="input" width="312" />
+                                                        <script>
+                                                            $('#input').datetimepicker({footer: true, modal: true});
+                                                        </script>
+                                                    </td>                    
+                                                </tr>   
                                             </tbody>
                                         </table>
 
@@ -613,163 +685,217 @@
         session.removeAttribute("shcedules");
     %>
     <script>
-                                                        $(document).ready(function () {
+        <script>
+        $(document).ready(function () {
 
-                                                            // code to read selected table row cell data (values).
-                                                            $("#tabel-data").on('click', '.btn', function () {
-                                                                // get the current row
-                                                                var currentRow = $(this).closest("tr");
-
-                                                                var No = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-                                                                var ID = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
-                                                                var Trainer = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
-                                                                var Title = currentRow.find("td:eq(4)").text(); // get current row 6rd TD
-                                                                var Room = currentRow.find("td:eq(6)").text(); // get current row 7rd TD
-                                                                var EventDate = currentRow.find("td:eq(8)").text(); // get current row 7rd TD
+                                                                    // code to read selected table row cell data (values).
+                                                                    $("#tabel-data").on('click', '.btn', function () {
+                                                            // get the current row
+                                                            var currentRow = $(this).closest("tr");
+                                                            var No = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+                                                            var ID = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+                                                            var Trainer = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+                                                            var Title = currentRow.find("td:eq(4)").text(); // get current row 6rd TD
+                                                            var Room = currentRow.find("td:eq(6)").text(); // get current row 7rd TD
+                                                            var EventDate = currentRow.find("td:eq(8)").text(); // get current row 7rd TD
 //                                                                    var Stok = currentRow.find("td:eq(7)").text(); // get current row 8rd TD
 
-                                                                //            var data = col1 + "\n" + col2 + "\n" + col3;
+                                                            //            var data = col1 + "\n" + col2 + "\n" + col3;
 
-                                                                $("#txtId").val(ID);
-                                                                $("#trainer").val(Trainer);
-                                                                $("#materi").val(Title);
-                                                                $("#room").val(Room);
-                                                                $("#Tanggal").val(EventDate);
+                                                            $("#txtId").val(ID);
+                                                            $("#trainer").val(Trainer);
+                                                            $("#materi").val(Title);
+                                                            $("#room").val(Room);
+                                                            $("#Tanggal").val(EventDate);
+                                                            //            alert(data);
+                });
+                });
+                </script>
+                <script>
+                $(document).ready(function () {
 
+                    // code to read selected table row cell data (values).
+                    $("#tabel-data1").on('click', '.btn', function () {
+                                                            // get the current row
+                                                            var currentRow = $(this).closest("tr");
+                                                            var No = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+                                                            var ID = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+                                                            var Trainer = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+                                                            var Title = currentRow.find("td:eq(4)").text(); // get current row 6rd TD
+                                                            var Room = currentRow.find("td:eq(6)").text(); // get current row 7rd TD
+                                                            var EventDate = currentRow.find("td:eq(8)").text(); // get current row 7rd TD
+//                                                                    var Stok = currentRow.find("td:eq(7)").text(); // get current row 8rd TD
 
+                                                            //            var data = col1 + "\n" + col2 + "\n" + col3;
 
-
-                                                                //            alert(data);
-                                                            });
-                                                        });
-    </script>
-    <script>
+                                                            $("#txtId").val(ID);
+                                                            $("#trainer").val(Trainer);
+                                                            $("#materi").val(Title);
+                                                            $("#room").val(Room);
+                                                            $("#Tanggal").val(EventDate);
+                                                            
+                                                            
+                                                            
+                                                            
+                                                                                        
+                                                                                        
+                    
+                    //            alert(data);
+                        });
+                  });
+                        </script>
         $('#edit').on('shown.bs.modal', function () {
             $(this).find('#txtName').focus();
         });
     </script>
-    <script>
-        $('#add').on('shown.bs.modal', function () {
+        <script>
+            $('#add').on('shown.bs.modal', function () {
             $(this).find('#txtNames').focus();
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#tabel-data').DataTable();
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#btnSave').click(function (e) {
-                var Id = $('#txtId').val();
-                var Name = $('#txtName').val();
-                var Tanggal = $('#txtTanggal').val();
-                var Jumlah = $('#txtJumlah').val();
-                var res;
-
-                if (Id == "" || Name == "" || Tanggal == "" || Jumlah == "") {
-                    $('#edit').modal('show');
-                    Swal.fire({
-                        title: 'Failed',
-                        type: 'error',
-                        text: 'Data Tidak Boleh Kosong',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    return false
-                } else {
-                    Swal.fire({
-                        title: 'Saved',
-                        text: 'Success',
-                        type: 'success',
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                    return res;
-                }
             });
+        </script>
+        <script>
+            $(document).ready(function () {
+      var t = $('#tabel-data').DataTable({
+        "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0 
+          }],
+        "order": [[1, 'asc']]
+      });
+      t.on('order.dt search.dt', function () {
+        t.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
         });
-    </script>
-    <script>
+      }).draw();
+    });
+        </script>
+        <script>
         $(document).ready(function () {
-            $('#btnDel').click(function (e) {
-                var Id = $('#txtId').val();
-                var res;
-                $('#del').modal('hide');
-                if (Id == "") {
-                    Swal.fire({
-                        title: 'Failed',
-                        type: 'error',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    return false;
-                } else {
-                    Swal.fire({
-                        title: 'Deleted',
-                        text: 'Success',
-                        type: 'success',
-                        confirmButtonText: "Yes",
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                }
+      var t = $('#tabel-data1').DataTable({
+        "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0 
+          }],
+        "order": [[1, 'asc']]
+      });
+      t.on('order.dt search.dt', function () {
+        t.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
+        });
+      }).draw();
+    });
+        </script>
+                        <script>
+                            $(document).ready(function () {
+                                    $('#btnSave').click(function (e) {
+                            var Id = $('#txtId').val();
+                                            var Name = $('#txtName').val();
+                                            var Tanggal = $('#txtTanggal').val();
+                            var Jumlah = $('#txtJumlah').val();                                       var res;
+                                            if (Id == "" || Name == "" || Tanggal == "" || Jumlah == "") {
+                                            $('#edit').modal('show');
+                                            Swal.fire({
+                                            title: 'Failed',
+                                    type: 'error',
+                            text: 'Data Tidak Boleh Kosong',
+                                                    showConfirmButton: false,
+                                                    timer: 2000
+                })
+                return false
+                            } else {
+                            Swal.fire({
+                                                    title: 'Saved',
+                                                            text: 'Success',
+                                                            type: 'success',
+                                                            showConfirmButton: false,
+                                                            timer: 3000
+                            })
+                        return res;
+                        }
+                            });
+                                    });
+                            </script>
+                            <script>
+                            $(document).ready(function () {
+                                                            $('#btnDel').click(function (e) {
+                                var Id = $('#txtId').val();
+                                var res;
+                                                    $('#del').modal('hide');
+                                                    if (Id == "") {
+                                                    Swal.fire({
+                                                    title: 'Failed',
+                                                            type: 'error',
+                                                            showConfirmButton: false,
+                                                            timer: 2000
+                        })
+                                return false;
+                                } else {
+                                Swal.fire({
+                                                            title: 'Deleted',
+                                text: 'Success',
+                                                                    type: 'success',
+                                                                    confirmButtonText: "Yes",
+                                                                    showConfirmButton: false,
+                                                                    timer: 3000
+            })
+            }
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#btnAdd').click(function (e) {
-                var Id = $('#txtIds').val();
-                var Name = $('#txtNames').val();
-                var Tanggal = $('#txtTanggals').val();
-                var Jumlah = $('#txtJumlahs').val();
-                var res;
-
-                if (Id == "" || Name == "" || Tanggal == "" || Jumlah == "") {
-                    $('#add').modal('show');
-                    Swal.fire({
-                        title: 'Gagal',
-                        type: 'error',
-                        text: 'Data tidak boleh kosong',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    return false
-                } else {
-                    Swal.fire({
-                        title: 'Berhasil',
-                        type: 'success',
-                        confirmButtonText: "Yes",
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                }
             });
-        });
-    </script>
-    <script>
-        // Restricts input for the given textbox to the given inputFilter.
-        function setInputFilter(textbox, inputFilter) {
-            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
-                textbox.addEventListener(event, function () {
-                    if (inputFilter(this.value)) {
-                        this.oldValue = this.value;
-                        this.oldSelectionStart = this.selectionStart;
-                        this.oldSelectionEnd = this.selectionEnd;
-                    } else if (this.hasOwnProperty("oldValue")) {
-                        this.value = this.oldValue;
-                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                    }
-                });
+            </script>
+                <script>
+                $(document).ready(function () {
+                                                                    $('#btnAdd').click(function (e) {
+                                                            var Id = $('#txtIds').val();
+                                                            var Name = $('#txtNames').val();
+                                                            var Tanggal = $('#txtTanggals').val();
+                                                            var Jumlah = $('#txtJumlahs').val();
+                                                            var res;
+                                                            if (Id == "" || Name == "" || Tanggal == "" || Jumlah == "") {
+                                                            $('#add').modal('show');
+                                                            Swal.fire({
+                                                            title: 'Gagal',
+                                                                    type: 'error',
+                                                                    text: 'Data tidak boleh kosong',
+                                                                    showConfirmButton: false,
+                                                                    timer: 2000
+                        })
+                        return false
+                    } else {
+                                                                    Swal.fire({
+                                                                    title: 'Berhasil',
+                                                                            type: 'success',
+                                                                            confirmButtonText: "Yes",
+                                                                            showConfirmButton: false,
+                                                                            timer: 3000
+                            })
+                            }
+                        });
+                    });
+                    </script>
+                    <script>
+                        // Restricts input for the given textbox to the given inputFilter.
+                            function setInputFilter(textbox, inputFilter) {
+                                                                    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+                                                                    textbox.addEventListener(event, function () {
+                                                                    if (inputFilter(this.value)) {
+                                                                    this.oldValue = this.value;
+                                                                    this.oldSelectionStart = this.selectionStart;
+                                                                    this.oldSelectionEnd = this.selectionEnd;
+                            } else if (this.hasOwnProperty("oldValue")) {
+                                                                            this.value = this.oldValue;
+                                                                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                            }
+                            });
+                            });
+                            }
+                        // Install input filters.    
+                    setInputFilter(document.getElementById("txtJumlah"), function (value) {
+                                                                            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 500);
             });
-        }
-        // Install input filters.    
-        setInputFilter(document.getElementById("txtJumlah"), function (value) {
-            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 500);
-        });
-        setInputFilter(document.getElementById("txtJumlahs"), function (value) {
-            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 500);
-        });
-    </script>
+            setInputFilter(document.getElementById("txtJumlahs"), function (value) {
+                                                                            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 500);
+            });
+            </script>
 </html>

@@ -60,6 +60,7 @@ public class ScheduleServlet extends HttpServlet {
             request.getSession().setAttribute("trainers", trainerc.getAll());
             request.getSession().setAttribute("rooms", roomc.getAll());
             request.getSession().setAttribute("materis", materic.getAll());
+            request.getSession().setAttribute("historySchedule", igdao.historyDate(new Shcedule()));
             response.sendRedirect("schedule.jsp");
         }
     }

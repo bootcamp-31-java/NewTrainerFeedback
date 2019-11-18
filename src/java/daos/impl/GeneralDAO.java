@@ -8,6 +8,7 @@ package daos.impl;
 import daos.IGeneralDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import models.Account;
 import org.hibernate.Criteria;
@@ -288,6 +289,24 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
             session.close();
         }
         return entitys;
+    }
+
+    @Override
+    public List<T> historyDate(T entity) {
+        List<T> entities = new ArrayList<>();
+        session = this.factory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            entities = (List<T>) session.createQuery("From Shcedule where Sysdate > eventDate");
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return entities;
     }
 
 }

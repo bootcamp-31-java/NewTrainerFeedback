@@ -84,7 +84,10 @@ public class Shcedule implements Serializable {
         this.title = title;
         this.room = room;
     }
-    
+
+    public Shcedule(Date eventDate) {
+        this.eventDate = eventDate;
+    }
     
     public String getId() {
         return id;

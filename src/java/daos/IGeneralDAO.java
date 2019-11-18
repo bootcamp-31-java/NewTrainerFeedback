@@ -71,5 +71,5 @@ public interface IGeneralDAO<T> {
     
     public T countData(T entity);
 
-       
+     public List<T> historyDate(T entity);
 }
