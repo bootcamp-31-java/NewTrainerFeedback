@@ -4,6 +4,7 @@
     Author     : G551VW
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="models.Materi"%>
 <%@page import="models.Trainer"%>
 <%@page import="models.Room"%>
@@ -47,10 +48,10 @@
         List<Room> rooms = (List<Room>) session.getAttribute("rooms");
         List<Trainer> trainers = (List<Trainer>) session.getAttribute("trainers");
         List<Materi> materis = (List<Materi>) session.getAttribute("materis");
-        List<Shcedule> historySchedule = (List<Shcedule>) session.getAttribute("historySchedule");
+//        List<Shcedule> historySchedule = (List<Shcedule>) session.getAttribute("historySchedule");
         
 
-        if (historySchedule != null) {
+        if (shcedules != null) {
     %>
     <body id="page-top">
 
@@ -398,7 +399,11 @@
                                                     <tbody>
                                                         <%
                                                             int records = 1;
-                                                            for (Shcedule historySchedules : historySchedule) {
+                                                            Calendar calendar = Calendar.getInstance();
+                                                            Date now = calendar.getTime();
+                                                            for (Shcedule historySchedules : shcedules) {
+                                                                if (now.before(historySchedules.getEventDate())) {
+                                                                    Date a = now;
                                                         %>
                                                         <tr>
                                                             <td><%=records++%></td>
@@ -410,7 +415,7 @@
                                                             <td style="display:none;"><%=historySchedules.getRoom().getId()%></td>                                                
                                                             <td><%=historySchedules.getRoom().getName()%></td>     
                                                             <%%>
-                                                            <td><%=historySchedules.getEventDate()%></td>
+                                                            <td><%=a%></td>
                                                             <%%>
                                                             <td>
                                                                 <!--                                        <button type="button" class="coba">Test</button>-->
@@ -420,6 +425,7 @@
                                                             </td>
                                                         </tr>
                                                         <%
+                                                            }
                                                             }
                                                         %>
                                                     </tbody>                                        
